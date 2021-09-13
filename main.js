@@ -101,7 +101,6 @@ app.get('/update/:pageId', function (request, response) {
         `,
         `<a href="/create">create</a> <a href="/update?id=${title}">update</a>`
       );
-      //위의 코드에서 /update?id=${title} 부분은 /update/${title}로 수정 되어야 하는 버그입니다. 
       response.send(html);
     });
   });
