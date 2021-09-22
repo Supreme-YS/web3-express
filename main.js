@@ -1,52 +1,52 @@
 var express = require('express')
 var app = express()
 var fs = require('fs');
-var template = require('./lib/template.js');
 var path = require('path');
-var sanitizeHtml = require('sanitize-html');
 var qs = require('querystring');
-
+var sanitizeHtml = require('sanitize-html');
+var template = require('./lib/template.js');
+ 
 //route, routing
 //app.get('/', (req, res) => res.send('Hello World!'))
-app.get('/', function (request, response) {
-  fs.readdir('./data', function (error, filelist) {
+app.get('/', function(request, response) { 
+  fs.readdir('./data', function(error, filelist){
     var title = 'Welcome';
     var description = 'Hello, Node.js';
     var list = template.list(filelist);
     var html = template.HTML(title, list,
       `<h2>${title}</h2>${description}`,
       `<a href="/create">create</a>`
-    );
+    ); 
     response.send(html);
   });
 });
-
-app.get('/page/:pageId', function (request, response) {
-  fs.readdir('./data', function (error, filelist) {
+ 
+app.get('/page/:pageId', function(request, response) { 
+  fs.readdir('./data', function(error, filelist){
     var filteredId = path.parse(request.params.pageId).base;
-    fs.readFile(`data/${filteredId}`, 'utf8', function (err, description) {
+    fs.readFile(`data/${filteredId}`, 'utf8', function(err, description){
       var title = request.params.pageId;
       var sanitizedTitle = sanitizeHtml(title);
       var sanitizedDescription = sanitizeHtml(description, {
-        allowedTags: ['h1']
+        allowedTags:['h1']
       });
       var list = template.list(filelist);
       var html = template.HTML(sanitizedTitle, list,
         `<h2>${sanitizedTitle}</h2>${sanitizedDescription}`,
         ` <a href="/create">create</a>
-        <a href="/update?id=${sanitizedTitle}">update</a>
-        <form action="delete_process" method="post">
-          <input type="hidden" name="id" value="${sanitizedTitle}">
-          <input type="submit" value="delete">
-        </form>`
+          <a href="/update?id=${sanitizedTitle}">update</a>
+          <form action="delete_process" method="post">
+            <input type="hidden" name="id" value="${sanitizedTitle}">
+            <input type="submit" value="delete">
+          </form>`
       );
       response.send(html);
     });
   });
 });
-
-app.get('/create', function (request, response) {
-  fs.readdir('./data', function (error, filelist) {
+ 
+app.get('/create', function(request, response){
+  fs.readdir('./data', function(error, filelist){
     var title = 'WEB - create';
     var list = template.list(filelist);
     var html = template.HTML(title, list, `
@@ -63,7 +63,7 @@ app.get('/create', function (request, response) {
     response.send(html);
   });
 });
-
+ 
 app.post('/create_process', function(request, response){
   var body = '';
   request.on('data', function(data){
@@ -79,8 +79,8 @@ app.post('/create_process', function(request, response){
       })
   });
 });
-
-app.listen(3000, function () {
+ 
+app.listen(3000, function() {
   console.log('Example app listening on port 3000!')
 });
 
