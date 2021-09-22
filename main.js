@@ -1,14 +1,34 @@
+/* 2021 Example */
+// const express = require('express')
+// const app = express()
+// const port = 3000
+
+// app.get('/', (req, res) => {
+//   res.send('Hello World!')
+// })
+
+// app.listen(port, () => {
+//   console.log(`Example app listening at http://localhost:${port}`)
+// })
+
+
+/* Lecture Example */
 const express = require('express')
 const app = express()
-const port = 3000
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+// get 메소드는 route, routing 이라고 한다.
+// 
+// app.get('/', (req, res) => res.send('Hello World'))
+app.get('/', function(req, res) {
+  return res.send("Hello World")
+});
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+app.get('/page', function(req, res) {
+  return res.send("Hello Page!")
+});
+
+app.listen(3000, () => console.log('Example app listening on port 3000'))
+
 
 // var http = require('http');
 // var fs = require('fs');
