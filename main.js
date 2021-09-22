@@ -17,7 +17,10 @@ const express = require('express')
 const app = express()
 
 // get 메소드는 route, routing 이라고 한다.
-// 
+// get(경로, Callback 함수)
+// 이전에는 if 문을 통해 경로를 설정해줌. 가독성 증가!
+
+/* Callback함수의 표현 */
 // app.get('/', (req, res) => res.send('Hello World'))
 app.get('/', function(req, res) {
   return res.send("Hello World")
@@ -27,7 +30,12 @@ app.get('/page', function(req, res) {
   return res.send("Hello Page!")
 });
 
-app.listen(3000, () => console.log('Example app listening on port 3000'))
+
+/* Callback함수의 표현 */
+// app.listen(3000, () => console.log('Example app listening on port 3000'))
+app.listen(3000, function(){
+  console.log('Example app listening on port 3000')
+});
 
 
 // var http = require('http');
