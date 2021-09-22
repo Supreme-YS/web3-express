@@ -15,6 +15,8 @@
 /* Lecture Example */
 const express = require('express')
 const app = express()
+var fs = require('fs');
+var template = require('./lib/template.js');
 
 // get 메소드는 route, routing 이라고 한다.
 // get(경로, Callback 함수)
@@ -22,8 +24,17 @@ const app = express()
 
 /* Callback함수의 표현 */
 // app.get('/', (req, res) => res.send('Hello World'))
-app.get('/', function(req, res) {
-  return res.send("Hello World")
+app.get('/', function(request, response) {
+  fs.readdir('./data', function(error, filelist){
+    var title = 'Welcome';
+    var description = 'Hello, Node.js';
+    var list = template.list(filelist);
+    var html = template.HTML(title, list,
+      `<h2>${title}</h2>${description}`,
+      `<a href="/create">create</a>`
+    );
+    response.send(html);
+  });
 });
 
 app.get('/page', function(req, res) {
