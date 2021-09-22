@@ -1,30 +1,11 @@
-/* 2021 Example */
-// const express = require('express')
-// const app = express()
-// const port = 3000
-
-// app.get('/', (req, res) => {
-//   res.send('Hello World!')
-// })
-
-// app.listen(port, () => {
-//   console.log(`Example app listening at http://localhost:${port}`)
-// })
-
-
-/* Lecture Example */
-const express = require('express')
-const app = express()
+var express = require('express')
+var app = express()
 var fs = require('fs');
 var template = require('./lib/template.js');
-
-// get 메소드는 route, routing 이라고 한다.
-// get(경로, Callback 함수)
-// 이전에는 if 문을 통해 경로를 설정해줌. 가독성 증가!
-
-/* Callback함수의 표현 */
-// app.get('/', (req, res) => res.send('Hello World'))
-app.get('/', function(request, response) {
+ 
+//route, routing
+//app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', function(request, response) { 
   fs.readdir('./data', function(error, filelist){
     var title = 'Welcome';
     var description = 'Hello, Node.js';
@@ -32,22 +13,18 @@ app.get('/', function(request, response) {
     var html = template.HTML(title, list,
       `<h2>${title}</h2>${description}`,
       `<a href="/create">create</a>`
-    );
+    ); 
     response.send(html);
   });
 });
-
-app.get('/page', function(req, res) {
-  return res.send("Hello Page!")
+ 
+app.get('/page/:pageId', function(request, response) { 
+  response.send(request.params);
 });
-
-
-/* Callback함수의 표현 */
-// app.listen(3000, () => console.log('Example app listening on port 3000'))
-app.listen(3000, function(){
-  console.log('Example app listening on port 3000')
+ 
+app.listen(3000, function() {
+  console.log('Example app listening on port 3000!')
 });
-
 
 // var http = require('http');
 // var fs = require('fs');
