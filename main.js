@@ -151,6 +151,14 @@ app.post('/update_process', function (request, response) {
 });
 
 app.post('/delete_process', function (request, response) {
+  var post = request.body;
+  var id = post.id;
+  var filteredId = path.parse(id).base;
+  fs.unlink(`data/${filteredId}`, function (error) {
+    response.redirect('/');
+  })
+  
+  /*
   var body = '';
   request.on('data', function (data) {
     body = body + data;
@@ -162,7 +170,8 @@ app.post('/delete_process', function (request, response) {
     fs.unlink(`data/${filteredId}`, function (error) {
       response.redirect('/');
     })
-  });
+  }); */
+  
 });
 
 app.listen(3000, function () {
