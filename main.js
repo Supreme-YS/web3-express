@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 /* how to make middle-ware */
 /* reqeust의 list property를 사용하여 반복을 줄임 */
-/* get 방식의 요청만 처리 */
+/* 메소드가 get 방식의 요청만 처리 */
 app.get('*', function (request, response, next) {
   fs.readdir('./data', function (error, filelist) {
     request.list = filelist;
