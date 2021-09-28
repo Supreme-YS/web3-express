@@ -6,6 +6,11 @@ var qs = require('querystring');
 var sanitizeHtml = require('sanitize-html');
 var template = require('./lib/template.js');
 
+/* how to serve static files */
+/* 정적인 파일을 서비스하려면 경로를 설정하여 작업하면 된다. */
+app.use(express.static('public')); // public 디렉토리 안에서 파일을 찾겠다
+
+
 /* body-parser middle-ware use */
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -27,7 +32,8 @@ app.get('/', function (request, response) {
   var description = 'Hello, Node.js';
   var list = template.list(request.list);
   var html = template.HTML(title, list,
-    `<h2>${title}</h2>${description}`,
+    `<h2>${title}</h2>${description}
+    <img src="/images/hello.jpg" style="width:300px; display:block; margin-top:10px;">`,
     `<a href="/create">create</a>`
   );
   response.send(html);
