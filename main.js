@@ -6,6 +6,11 @@ var qs = require('querystring');
 var sanitizeHtml = require('sanitize-html');
 var template = require('./lib/template.js');
 
+/* body-parser middle-ware use */
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded( { extended: false }));
+
+
 //route, routing
 //app.get('/', (req, res) => res.send('Hello World!'))
 app.get('/', function (request, response) {
@@ -65,6 +70,15 @@ app.get('/create', function (request, response) {
 });
 
 app.post('/create_process', function (request, response) {
+  
+  var post = request.body;
+  var title = post.title;
+  var description = post.description;
+  fs.writeFile(`data/${title}`, description, 'utf8', function (err) {
+    response.writeHead(302, { Location: `/?id=${title}` });
+    response.end();
+  })
+  /*
   var body = '';
   request.on('data', function (data) {
     body = body + data;
@@ -77,7 +91,7 @@ app.post('/create_process', function (request, response) {
       response.writeHead(302, { Location: `/?id=${title}` });
       response.end();
     })
-  });
+  }); */
 });
 
 app.get('/update/:pageId', function (request, response) {
