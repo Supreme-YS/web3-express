@@ -70,7 +70,7 @@ app.get('/create', function (request, response) {
 });
 
 app.post('/create_process', function (request, response) {
-  
+  // body-parser를 사용한 코드 변경
   var post = request.body;
   var title = post.title;
   var description = post.description;
@@ -121,6 +121,18 @@ app.get('/update/:pageId', function (request, response) {
 });
 
 app.post('/update_process', function (request, response) {
+  
+  var post = request.body;
+  var id = post.id;
+  var title = post.title;
+  var description = post.description;
+  fs.rename(`data/${id}`, `data/${title}`, function (error) {
+    fs.writeFile(`data/${title}`, description, 'utf8', function (err) {
+      response.redirect(`/?id=${title}`);
+    })
+  });
+  
+  /*
   var body = '';
   request.on('data', function (data) {
     body = body + data;
@@ -135,7 +147,7 @@ app.post('/update_process', function (request, response) {
         response.redirect(`/?id=${title}`);
       })
     });
-  });
+  }); */
 });
 
 app.post('/delete_process', function (request, response) {
