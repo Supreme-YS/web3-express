@@ -5,6 +5,9 @@ var path = require('path');
 var qs = require('querystring');
 var sanitizeHtml = require('sanitize-html');
 var template = require('./lib/template.js');
+var compression = requrire('compression');
+
+app.use(compression());
 
 /* how to serve static files */
 /* 정적인 파일을 서비스하려면 경로를 설정하여 작업하면 된다. */
