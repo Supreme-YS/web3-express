@@ -8,7 +8,7 @@ var template = require('./lib/template.js');
 
 /* body-parser middle-ware use */
 var bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded( { extended: false }));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 
 //route, routing
@@ -121,7 +121,7 @@ app.get('/update/:pageId', function (request, response) {
 });
 
 app.post('/update_process', function (request, response) {
-  
+
   var post = request.body;
   var id = post.id;
   var title = post.title;
@@ -131,7 +131,7 @@ app.post('/update_process', function (request, response) {
       response.redirect(`/?id=${title}`);
     })
   });
-  
+
   /*
   var body = '';
   request.on('data', function (data) {
@@ -157,7 +157,7 @@ app.post('/delete_process', function (request, response) {
   fs.unlink(`data/${filteredId}`, function (error) {
     response.redirect('/');
   })
-  
+
   /*
   var body = '';
   request.on('data', function (data) {
@@ -171,7 +171,7 @@ app.post('/delete_process', function (request, response) {
       response.redirect('/');
     })
   }); */
-  
+
 });
 
 app.listen(3000, function () {
